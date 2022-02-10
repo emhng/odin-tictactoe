@@ -41,14 +41,23 @@ grid-template-rows: 1fr 1rem 1fr 1rem 1fr;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-#first-hr{
+.first-hr{
     grid-column: 1/6;
     grid-row: 2/3;
 }
 
-#second-hr{
+.second-hr{
     grid-column: 1/6;
     grid-row: 4/5;
+}
+
+div.coverup{
+    z-index: 2;
+    box-shadow: none;
+    margin-top: 0.1rem;
+    margin-left: 0.2rem;
+    height: 75%;
+    width: 99%;
 }
 
 .vr{
