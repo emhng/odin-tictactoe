@@ -79,5 +79,9 @@ div.coverup{
 }
 
 .cell:hover{
-    background-color: rgba(255, 0, 255, 0.20);
+    background-image: url(x.svg);
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
+    opacity: 0.65;
 }
