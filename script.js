@@ -112,16 +112,12 @@ const checkPattern = (pattern,player)=>{
 };
 
 let win = false;
-let noWin = false;
 
 //Run through all the win patterns in the list to check if there is a winning pattern present
 winPatternList.forEach(pattern=>{
-  console.log(pattern);
   checkPattern(pattern,player);
   if(checkPattern(pattern,player)===true){
     return win = true;
-  }else{
-    return noWin = true;
   }
 });
 
