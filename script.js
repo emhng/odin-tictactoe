@@ -96,10 +96,14 @@ const checkPattern = (pattern,player)=>{
     if(player.positions.includes(value)===true){
       return isAllTrue = true;
     }else{
+        //every(); stops executing when it hits a false,
+        //so isAllTrue will not be overwritten if it comes back as false.
       return isAllTrue = false;
     }
   })
 
+//Define a true/false value for the pattern that was checked
+//If returns as true, then that means all values in that pattern matched
   if(isAllTrue === true){
     return true;
   }else{
@@ -110,6 +114,7 @@ const checkPattern = (pattern,player)=>{
 let win = false;
 let noWin = false;
 
+//Run through all the win patterns in the list to check if there is a winning pattern present
 winPatternList.forEach(pattern=>{
   console.log(pattern);
   checkPattern(pattern,player);
@@ -122,6 +127,5 @@ winPatternList.forEach(pattern=>{
 
 if(win === true){
     alert(`${player.name} wins`);
-}
-
+};
 };
