@@ -18,8 +18,9 @@ const gameBoard = () => {
     boardCell.forEach(cell=>{
     cell.addEventListener("click",()=>{
         switchPlayers(cell);
-        decideWin(playerOne);
-        decideWin(playerTwo);
+        checkForWin(playerOne);
+        checkForWin(playerTwo);
+        decideGame(playerOne,playerTwo);
         });
     });
 };
@@ -29,11 +30,19 @@ gameBoard();
 const switchPlayers = (cell) =>{
     if(playerTurn === 1){
         placeMarker(cell,playerOne);
+        hoverMarker(playerTwo);
         return playerTurn = 2;
     }else{
         placeMarker(cell,playerTwo);
+        hoverMarker(playerOne);
         return playerTurn = 1;
     };
+};
+
+const hoverMarker = (player) => {
+  const rootEl = document.querySelector(":root");
+  const rootStyles = window.getComputedStyle(rootEl);
+  rootEl.style.setProperty("--player-marker",`url(${player.markerSVG})`);
 };
 
 const placeMarker = (cell,player) => {
@@ -66,7 +75,7 @@ const placeMarker = (cell,player) => {
     }
 };
 
-const decideWin = (player) => {
+const checkForWin = (player) => {
 
 const winPattern1 = [1,2,3];
 const winPattern2 = [4,5,6];
@@ -96,8 +105,8 @@ const checkPattern = (pattern,player)=>{
     if(player.positions.includes(value)===true){
       return isAllTrue = true;
     }else{
-        //every(); stops executing when it hits a false,
-        //so isAllTrue will not be overwritten if it comes back as false.
+        //every(); stops evaluting values when it hits a false & moves onto the next pattern set
+        //so if isAllTrue comes back as false, it will stay false & not be overwritten by a true
       return isAllTrue = false;
     }
   })
@@ -121,7 +130,35 @@ winPatternList.forEach(pattern=>{
   }
 });
 
+//Define checkForWin() as true if winning pattern exists
 if(win === true){
-    alert(`${player.name} wins`);
+  return true;
+}else{
+  return false;
 };
+
 };
+
+const decideGame = (playerOne,playerTwo) => {
+  const playerOneWins = checkForWin(playerOne) === true;
+  const playerTwoWins = checkForWin(playerTwo) === true;
+  const lastMove = playerOne.positions.length === 5;
+  const noWinners = !playerOneWins && !playerTwoWins;
+
+  if(playerOneWins){
+    alert(`${playerOne.name} wins!`);
+    return true
+  };
+
+  if(playerTwoWins){
+      alert(`${playerTwo.name} wins!`);
+      return true
+  };
+  
+  if (lastMove && noWinners){
+    alert("It's a draw!");
+    return true
+  };
+  
+};
+

@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+:root{
+    --player-marker: url(x.svg);
+}
+
 /* Remove default margin */
 body,
 h1,
@@ -82,7 +86,7 @@ div.coverup{
 }
 
 .cell:hover{
-    background-image: url(x.svg);
+    background-image: var(--player-marker);
     background-repeat: no-repeat;
     background-size: 70%;
     background-position: center;
@@ -92,4 +96,9 @@ div.coverup{
 div.cell.taken:hover{
     background-image: none;
     opacity: 1;
+}
+
+img{
+    width: 100%;
+    padding: 1rem;
 }
