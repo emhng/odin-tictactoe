@@ -9,7 +9,28 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="board-cont">
+    <div class="modal vflex">
+        <div class="modal-cont stack">
+            <h1>Tic Tac Toe</h1>
+            <div class="player hflex">
+                <img class="hero" src="x.svg">
+                <div class="vflex">
+                    <label for="player-one">Player One</label>
+                    <input id="player-one" type="text" placeholder="Enter name for player one">
+                </div>
+            </div>
+            <div class="player hflex">
+                <img class="hero" src="o.svg">
+                <div class="vflex">
+                    <label for="player-two">Player Two</label>
+                    <input id="player-two" type="text" placeholder="Enter name for player two">
+                </div>
+            </div>
+            <button type="button" id="start">Start Game</button>
+        </div>
+    </div>
+
+    <div class="board-cont hidden">
         <div class="cell" id="one"></div>
         <div class="vr divider" id="first-vr"></div>
         <div class="cell" id="two"></div>
@@ -25,6 +46,11 @@
         <div class="cell" id="seven"></div>
         <div class="cell" id="eight"></div>
         <div class="cell" id="nine"></div>
+    </div>
+
+    <div class="modal hidden">
+        <h1></h1>
+        <button type="button">Play again?</button>
     </div>
 </body>
 </html>

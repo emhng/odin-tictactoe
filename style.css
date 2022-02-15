@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;900&display=swap');
+
 /* Box sizing rules */
 *,
 *::before,
@@ -7,6 +9,7 @@
 
 :root{
     --player-marker: url(x.svg);
+    font-family: 'Rubik', sans-serif;
 }
 
 /* Remove default margin */
@@ -28,9 +31,81 @@ body {
   background-color: #F5F8F7;
 }
 
-#board-cont{
+.modal{
+    background-color: inherit;
+    min-height: 100vh;
+    z-index: 1;
+    justify-content: center;
+}
+
+.modal-cont{
+    width: 45vw;
+    min-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.vflex{
+    display: flex;
+    flex-direction: column;
+}
+
+.hflex{
+    display: flex;
+}
+
+.player{
+   align-items: center;
+   gap: 0.5rem;
+}
+
+label{
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+    opacity: 0.8;
+}
+
+input{
+   padding: 0.5rem;
+   border-radius: 1rem;
+   border: 1px rgba(0, 0, 0, 0.10) solid;
+   font-size: 1rem;
+   width: calc( 1rem + 33vw);
+   min-width: 250px;
+   box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+button{
+    border-radius: 1rem;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+h1{
+    text-align: center;
+    font-size: 7rem;
+    line-height: 100%;
+    font-weight: 900;
+    opacity: 0.8;
+}
+
+.stack>*{
+margin-bottom: 1rem;
+}
+
+.stack:last-child{
+    margin-bottom: 0;
+}
+
+.board-cont{
 width: 45vw;
+min-width: 350px;
 height: 45vw;
+min-height: 350px;
 margin-top: 2rem;
 margin-left: auto;
 margin-right: auto;
@@ -101,4 +176,17 @@ div.cell.taken:hover{
 img{
     width: 100%;
     padding: 1rem;
+}
+
+img.hero{
+    width: 20%;
+    min-width: 5rem;
+}
+
+.hidden{
+    display: none;
+}
+
+button#start{
+    width: 100%;
 }

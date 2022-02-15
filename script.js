@@ -7,8 +7,8 @@ const player = (name,playerNo) => {
     return {name, playerNo, marker, markerSVG, positions};
 };
 
-const playerOne = player("A",1);
-const playerTwo = player("B",2);
+const playerOne = player("Player One",1);
+const playerTwo = player("Player Two",2);
 
 let playerTurn = 1;
 
