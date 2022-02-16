@@ -25,11 +25,12 @@ const targetContEl = document.querySelector(querySelector);
 targetContEl.classList.toggle("hidden");
 };
 
-let playerTurn = 1;
-
 const startButtonEl = document.querySelector("button#start");
 
 startButtonEl.addEventListener("click", ()=> {
+
+  let playerTurn = 1;
+
   let playerOneName = document.querySelector("input#player-one").value;
   let playerTwoName = document.querySelector("input#player-two").value;
 
@@ -71,7 +72,6 @@ const switchPlayers = (cell) =>{
 
 const hoverMarker = (player) => {
   const rootEl = document.querySelector(":root");
-  const rootStyles = window.getComputedStyle(rootEl);
   rootEl.style.setProperty("--player-marker",`url(${player.markerSVG})`);
 };
 
@@ -172,10 +172,10 @@ if(win === true){
 const decideGame = (playerOne,playerTwo) => {
   const playerOneWins = checkForWin(playerOne) === true;
   const playerTwoWins = checkForWin(playerTwo) === true;
-  const lastMove = playerOne.positions.length === 5;
+  const lastMove = playerOne.positions.length === 5 || playerTwo.positions.length === 5;
   const noWinners = !playerOneWins && !playerTwoWins;
 
-  const h1El = document.querySelector("h1#judge")
+  const h1El = document.querySelector("h1#judge");
 
   if(playerOneWins){
     h1El.textContent = `${playerOne.name} wins!`;
@@ -191,8 +191,37 @@ const decideGame = (playerOne,playerTwo) => {
     h1El.textContent="It's a draw!";
     toggleHidden("div#end-screen");
   };
-  
+
+  const h2El = document.querySelector("h2#who-goes-first");
+  if(playerTurn === 2){
+    h2El.textContent = `${playerTwo.name} goes first next game`;
+  }else{
+    h2El.textContent = `${playerOne.name} goes first next game`;
+  };
+
 };
+
+const restartButtonEl = document.querySelector("button#restart");
+
+restartButtonEl.addEventListener("click", ()=>{
+  playerOne.positions.length = 0;
+  playerTwo.positions.length = 0;
+
+  const markersEl = document.querySelectorAll("div.cell.taken img");
+
+  markersEl.forEach(marker=>{
+    marker.remove();
+  });
+
+  const takenBoardCellEl = document.querySelectorAll("div.cell.taken");
+
+  takenBoardCellEl.forEach(cell=>{
+    cell.classList.remove("taken");
+  });
+  
+  toggleHidden("div#end-screen");
+
+});
 
 });
 
