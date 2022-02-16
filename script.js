@@ -1,3 +1,6 @@
+(() => {
+
+//Player generator
 const player = (name,playerNo) => {
   const playerOne = playerNo === 1;
   const noName = name === "";
@@ -18,12 +21,13 @@ const player = (name,playerNo) => {
   return {name, playerNo, marker, markerSVG, positions};
 };
 
-const toggleHidden = (querySelector)=>{
-const targetContEl = document.querySelector(querySelector);
+//Change screens by toggling hidden class
+const toggleHidden = (targetElId) =>{
+const targetContEl = document.querySelector(targetElId);
 targetContEl.classList.toggle("hidden");
 };
 
-const gameRunner = () =>{
+//Start Tictactoe game
 const startButtonEl = document.querySelector("button#start");
 
 startButtonEl.addEventListener("click", ()=> {
@@ -36,12 +40,10 @@ startButtonEl.addEventListener("click", ()=> {
   let playerOne = player(playerOneName,1);
   let playerTwo = player(playerTwoName,2);
 
-  console.log(playerOne);
-  console.log(playerTwo);
-
   toggleHidden("div#start-screen")
   toggleHidden("div#gameboard")
 
+//Play a round of Tic Tac Toe
 const gameBoard = (playerOne,playerTwo) => {
     const boardCell = document.querySelectorAll("div.cell");
 
@@ -57,6 +59,7 @@ const gameBoard = (playerOne,playerTwo) => {
 
 gameBoard(playerOne,playerTwo);
 
+//Controls player turns
 const switchPlayers = (cell) =>{
     if(playerTurn === 1){
         placeMarker(cell,playerOne);
@@ -69,25 +72,30 @@ const switchPlayers = (cell) =>{
     };
 };
 
+//Display the correct marker upon hover over empty cell on gameboard
 const hoverMarker = (player) => {
   const rootEl = document.querySelector(":root");
   rootEl.style.setProperty("--player-marker",`url(${player.markerSVG})`);
 };
 
+//Place correct marker on gameboard 
 const placeMarker = (cell,player) => {
     const targetCellEl = document.querySelector(`div.cell#${cell.id}`);
 
     if(targetCellEl.classList.contains("taken")){
-        //Do not allow user to place another marker
+        //Do not allow user to place another marker if spot is taken
         return
     }
     else{
+        //Place correct marker on gameboard
         const imgEl = document.createElement("img");
         imgEl.src = player.markerSVG;
-
         targetCellEl.appendChild(imgEl);
+
+        //Mark taken spot on board as taken
         targetCellEl.classList.add("taken");
 
+        //Record what position the player took
         const convertToNum = {
             one: 1,
             two: 2,
@@ -101,9 +109,10 @@ const placeMarker = (cell,player) => {
         };
 
         player.positions.push(convertToNum[cell.id]);
-    }
+    };
 };
 
+//Check if player has a winning position
 const checkForWin = (player) => {
 
 const winPattern1 = [1,2,3];
@@ -126,6 +135,7 @@ const winPatternList = [
     winPattern8
 ];
 
+//Check the player's taken positions against a winning position's pattern
 const checkPattern = (pattern,player)=>{
   let isAllTrue = false;
 
@@ -134,29 +144,27 @@ const checkPattern = (pattern,player)=>{
     if(player.positions.includes(value)===true){
       return isAllTrue = true;
     }else{
-        //every(); stops evaluting values when it hits a false & moves onto the next pattern set
+        //every(); stops evaluting values when it hits a false 
         //so if isAllTrue comes back as false, it will stay false & not be overwritten by a true
       return isAllTrue = false;
-    }
-  })
+    };
+  });
 
 //Define a true/false value for the pattern that was checked
-//If returns as true, then that means all values in that pattern matched
   if(isAllTrue === true){
     return true;
   }else{
     return false;
-  }
+  };
 };
 
-let win = false;
-
 //Run through all the win patterns in the list to check if there is a winning pattern present
+let win = false;
 winPatternList.forEach(pattern=>{
   checkPattern(pattern,player);
   if(checkPattern(pattern,player)===true){
     return win = true;
-  }
+  };
 });
 
 //Define checkForWin() as true if winning pattern exists
@@ -168,38 +176,39 @@ if(win === true){
 
 };
 
+//Display win/draw screen
 const decideGame = (playerOne,playerTwo) => {
-  const playerOneWins = checkForWin(playerOne) === true;
-  const playerTwoWins = checkForWin(playerTwo) === true;
+
+  displayWinMsg(playerOne);
+  displayWinMsg(playerTwo);
+
   const lastMove = playerOne.positions.length === 5 || playerTwo.positions.length === 5;
-  const noWinners = !playerOneWins && !playerTwoWins;
+  const noWinners = checkForWin(playerOne) === false && checkForWin(playerTwo) === false;
 
   const h1El = document.querySelector("h1#judge");
 
-  if(playerOneWins){
-    h1El.textContent = `${playerOne.name} wins!`;
-    toggleHidden("div#end-screen");
-  };
-
-  if(playerTwoWins){
-      h1El.textContent =`${playerTwo.name} wins!`;
-      toggleHidden("div#end-screen");
-  };
-  
   if (lastMove && noWinners){
     h1El.textContent="It's a draw!";
     toggleHidden("div#end-screen");
   };
 
   const h2El = document.querySelector("h2#who-goes-first");
-  if(playerTurn === 2){
-    h2El.textContent = `${playerTwo.name} goes first next game`;
-  }else{
-    h2El.textContent = `${playerOne.name} goes first next game`;
+  playerTurn === 2 ? h2El.textContent = `${playerTwo.name} goes first next game` : h2El.textContent = `${playerOne.name} goes first next game`;
+
+};
+
+const displayWinMsg = (player) =>{
+  const playerWon = checkForWin(player) === true;
+  const h1El = document.querySelector("h1#judge");
+
+  if(playerWon){
+    h1El.textContent = `${player.name} wins!`;
+    toggleHidden("div#end-screen");
   };
 
 };
 
+//Reset game for next round
 const restartButtonEl = document.querySelector("button#restart");
 
 restartButtonEl.addEventListener("click", ()=>{
@@ -224,6 +233,4 @@ restartButtonEl.addEventListener("click", ()=>{
 
 });
 
-};
-
-gameRunner();
+})();
