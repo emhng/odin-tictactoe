@@ -34,7 +34,7 @@ body {
 .modal{
     background-color: inherit;
     min-height: 100vh;
-    z-index: 1;
+    z-index: 5;
     justify-content: center;
 }
 
@@ -101,12 +101,16 @@ margin-bottom: 1rem;
     margin-bottom: 0;
 }
 
+div.vflex#gameboard{
+    min-height: 100vh;
+    justify-content: center;
+}
+
 .board-cont{
 width: 45vw;
 min-width: 350px;
 height: 45vw;
 min-height: 350px;
-margin-top: 2rem;
 margin-left: auto;
 margin-right: auto;
 display: grid;
@@ -187,6 +191,13 @@ img.hero{
     display: none;
 }
 
-button#start{
+button{
     width: 100%;
+}
+
+div#end-screen{
+    position: absolute;
+    top:0;
+    min-width: 100vw;
+    background-color: rgba(255, 255, 255, 0.834);
 }

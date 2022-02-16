@@ -2,7 +2,18 @@ const gameRunner = () =>{
 
 const player = (name,playerNo) => {
   const playerOne = playerNo === 1;
+  const noName = name === "";
+
+  if(playerOne && noName){
+    name = "Player One";
+  };
+
+  if(!playerOne && noName){
+    name = "Player Two";
+  };
+
   let marker = "";
+
   playerOne ? marker = "x" : marker = "o";
   playerOne ? markerSVG = "x.svg" : markerSVG = "o.svg";
   let positions = [];
@@ -29,7 +40,7 @@ startButtonEl.addEventListener("click", ()=> {
   console.log(playerTwo);
 
   toggleHidden("div#start-screen")
-  toggleHidden("div.board-cont")
+  toggleHidden("div#gameboard")
 
 const gameBoard = (playerOne,playerTwo) => {
     const boardCell = document.querySelectorAll("div.cell");
@@ -45,8 +56,6 @@ const gameBoard = (playerOne,playerTwo) => {
 };
 
 gameBoard(playerOne,playerTwo);
-
-
 
 const switchPlayers = (cell) =>{
     if(playerTurn === 1){
@@ -166,19 +175,21 @@ const decideGame = (playerOne,playerTwo) => {
   const lastMove = playerOne.positions.length === 5;
   const noWinners = !playerOneWins && !playerTwoWins;
 
+  const h1El = document.querySelector("h1#judge")
+
   if(playerOneWins){
-    alert(`${playerOne.name} wins!`);
-    return true
+    h1El.textContent = `${playerOne.name} wins!`;
+    toggleHidden("div#end-screen");
   };
 
   if(playerTwoWins){
-      alert(`${playerTwo.name} wins!`);
-      return true
+      h1El.textContent =`${playerTwo.name} wins!`;
+      toggleHidden("div#end-screen");
   };
   
   if (lastMove && noWinners){
-    alert("It's a draw!");
-    return true
+    h1El.textContent="It's a draw!";
+    toggleHidden("div#end-screen");
   };
   
 };
