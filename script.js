@@ -1,5 +1,3 @@
-const gameRunner = () =>{
-
 const player = (name,playerNo) => {
   const playerOne = playerNo === 1;
   const noName = name === "";
@@ -25,6 +23,7 @@ const targetContEl = document.querySelector(querySelector);
 targetContEl.classList.toggle("hidden");
 };
 
+const gameRunner = () =>{
 const startButtonEl = document.querySelector("button#start");
 
 startButtonEl.addEventListener("click", ()=> {
