@@ -1,18 +1,37 @@
+const gameRunner = () =>{
+
 const player = (name,playerNo) => {
-    const playerOne = playerNo === 1;
-    let marker = "";
-    playerOne ? marker = "x" : marker = "o";
-    playerOne ? markerSVG = "x.svg" : markerSVG = "o.svg";
-    let positions = [];
-    return {name, playerNo, marker, markerSVG, positions};
+  const playerOne = playerNo === 1;
+  let marker = "";
+  playerOne ? marker = "x" : marker = "o";
+  playerOne ? markerSVG = "x.svg" : markerSVG = "o.svg";
+  let positions = [];
+  return {name, playerNo, marker, markerSVG, positions};
 };
 
-const playerOne = player("Player One",1);
-const playerTwo = player("Player Two",2);
+const toggleHidden = (querySelector)=>{
+const targetContEl = document.querySelector(querySelector);
+targetContEl.classList.toggle("hidden");
+};
 
 let playerTurn = 1;
 
-const gameBoard = () => {
+const startButtonEl = document.querySelector("button#start");
+
+startButtonEl.addEventListener("click", ()=> {
+  let playerOneName = document.querySelector("input#player-one").value;
+  let playerTwoName = document.querySelector("input#player-two").value;
+
+  let playerOne = player(playerOneName,1);
+  let playerTwo = player(playerTwoName,2);
+
+  console.log(playerOne);
+  console.log(playerTwo);
+
+  toggleHidden("div#start-screen")
+  toggleHidden("div.board-cont")
+
+const gameBoard = (playerOne,playerTwo) => {
     const boardCell = document.querySelectorAll("div.cell");
 
     boardCell.forEach(cell=>{
@@ -25,7 +44,9 @@ const gameBoard = () => {
     });
 };
 
-gameBoard();
+gameBoard(playerOne,playerTwo);
+
+
 
 const switchPlayers = (cell) =>{
     if(playerTurn === 1){
@@ -162,3 +183,8 @@ const decideGame = (playerOne,playerTwo) => {
   
 };
 
+});
+
+};
+
+gameRunner();
