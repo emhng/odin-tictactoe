@@ -1,6 +1,6 @@
 (() => {
 
-//Player generator
+//Generate player
 const player = (name,playerNo) => {
   const playerOne = playerNo === 1;
   const noName = name === "";
@@ -37,14 +37,14 @@ startButtonEl.addEventListener("click", ()=> {
   let playerOneName = document.querySelector("input#player-one").value;
   let playerTwoName = document.querySelector("input#player-two").value;
 
-  let playerOne = player(playerOneName,1);
-  let playerTwo = player(playerTwoName,2);
+  const playerOne = player(playerOneName,1);
+  const playerTwo = player(playerTwoName,2);
 
-  toggleHidden("div#start-screen")
-  toggleHidden("div#gameboard")
+  toggleHidden("div#start-screen");
+  toggleHidden("div#gameboard");
 
 //Play a round of Tic Tac Toe
-const gameBoard = (playerOne,playerTwo) => {
+((playerOne,playerTwo) => {
     const boardCell = document.querySelectorAll("div.cell");
 
     boardCell.forEach(cell=>{
@@ -55,11 +55,9 @@ const gameBoard = (playerOne,playerTwo) => {
         decideGame(playerOne,playerTwo);
         });
     });
-};
+})(playerOne,playerTwo);
 
-gameBoard(playerOne,playerTwo);
-
-//Controls player turns
+//Alternate between players
 const switchPlayers = (cell) =>{
     if(playerTurn === 1){
         placeMarker(cell,playerOne);
