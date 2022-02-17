@@ -85,16 +85,15 @@ button{
     font-weight: 900;
 }
 
-h1{
+h1,h2{
     text-align: center;
-    font-size: 7rem;
-    line-height: 100%;
-    font-weight: 900;
     opacity: 0.8;
 }
 
-h2{
-    text-align: center;
+h1{
+    font-size: 7rem;
+    line-height: 100%;
+    font-weight: 900;
 }
 
 .stack>*{

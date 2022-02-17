@@ -27,7 +27,7 @@ const targetContEl = document.querySelector(targetElId);
 targetContEl.classList.toggle("hidden");
 };
 
-//Start Tictactoe game
+//Start Tic Tac Toe game
 const startButtonEl = document.querySelector("button#start");
 
 startButtonEl.addEventListener("click", ()=> {
