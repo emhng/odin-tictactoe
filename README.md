@@ -8,7 +8,7 @@
 
 If you'd like to play locally:
 
-1. Download the repo by cliicking on Code -> Download Zip
+1. Download the repo by clicking on Code -> Download Zip
 2. Unzip the downloaded repo and open the folder
 3. Click on index.html
 
